@@ -66,6 +66,47 @@ class MetricsController extends AbstractController
     }
     
     /**
+     * @Route("/metrics/time", name="api_insight_metrics_time", methods={"GET"})
+     */
+    public function getTimeMetrics(Request $request): Response
+    {
+        // Vérification de l'authentification si activée
+        if ($this->authEnabled) {
+            if (!$this->checkAuth($request)) {
+                return new JsonResponse(['error' => 'Accès non autorisé'], Response::HTTP_UNAUTHORIZED);
+            }
+        }
+        
+        $period = $request->query->get('period', 'day');
+        $route = $request->query->get('route'); // Optionnel
+        
+        // Valider la période
+        if (!in_array($period, ['minute', 'hour', 'day', 'month', 'year'])) {
+            return new JsonResponse([
+                'error' => 'Période invalide. Utilisez minute, hour, day, month ou year.'
+            ], Response::HTTP_BAD_REQUEST);
+        }
+        
+        // Récupérer les métriques pour une route spécifique ou toutes les routes
+        if ($route) {
+            $metrics = $this->metricsStorage->getRouteMetricsForPeriod($route, $period);
+            return new JsonResponse([
+                'route' => $route,
+                'period' => $period,
+                'metrics' => $metrics,
+            ]);
+        }
+        
+        // Toutes les routes
+        $metrics = $this->metricsStorage->getMetricsForPeriod($period);
+        
+        return new JsonResponse([
+            'period' => $period,
+            'metrics' => $metrics,
+        ]);
+    }
+    
+    /**
      * @Route("/metrics/reset", name="api_insight_metrics_reset", methods={"POST"})
      */
     public function resetMetrics(Request $request): Response

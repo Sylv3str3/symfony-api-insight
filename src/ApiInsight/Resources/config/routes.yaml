@@ -3,6 +3,11 @@ api_insight_metrics:
     controller: ApiInsight\Controller\MetricsController::getMetrics
     methods: [GET]
 
+api_insight_metrics_time:
+    path: /metrics/time
+    controller: ApiInsight\Controller\MetricsController::getTimeMetrics
+    methods: [GET]
+
 api_insight_metrics_reset:
     path: /metrics/reset
     controller: ApiInsight\Controller\MetricsController::resetMetrics

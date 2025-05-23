@@ -1,6 +1,7 @@
 {
     "name": "api-insight/metrics-bundle",
     "description": "Métriques et monitoring pour API Symfony",
+    "version": "1.1.0",
     "type": "symfony-bundle",
     "license": "MIT",
     "require": {
