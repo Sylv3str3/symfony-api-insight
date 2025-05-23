@@ -1,0 +1,11 @@
+api_insight:
+    enabled: true
+    storage: memory # Options: memory, redis, database (Pro)
+    auth:
+        enabled: false
+        type: token # Options: token, jwt (Pro)
+        token: null # Votre token secret
+    prometheus:
+        enabled: false # Disponible en version Pro
+    dashboard:
+        enabled: false # Disponible en version Pro 

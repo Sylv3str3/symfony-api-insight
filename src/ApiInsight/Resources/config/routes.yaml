@@ -1,0 +1,9 @@
+api_insight_metrics:
+    path: /metrics
+    controller: ApiInsight\Controller\MetricsController::getMetrics
+    methods: [GET]
+
+api_insight_metrics_reset:
+    path: /metrics/reset
+    controller: ApiInsight\Controller\MetricsController::resetMetrics
+    methods: [POST]
